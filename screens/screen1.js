@@ -1,116 +1,92 @@
-import React, { useState } from "react";
-import { KeyboardAvoidingView, StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard, ScrollView, Platform } from 'react-native'; // Importa Platform desde react-native
-import Task from "../src/component/task";
+import React from 'react';
+import { StyleSheet, Text, View, FlatList, Image } from 'react-native';
 
-export default function TodoList() {
-  // Define el estado para la tarea y el listado de tareas
-  const [task, setTask] = useState(); //  useState para crear un estado para la tarea
-  const [taskItems, setTaskItems] = useState([]);
+export default function App() {
+  // Arreglo de objetos con la información de las comidas favoritas
+  const comidas = [
+    {
+      id: 1,
+      nombre: 'Pizza',
+      descripcion: 'Una deliciosa pizza con queso derretido y pepperoni.',
+      imagen: require('../imagenes/pizza.jpg'), // Ajusta la ruta de la imagen según tu estructura de archivos
+    },
+    {
+      id: 2,
+      nombre: 'Hamburguesa',
+      descripcion: 'Una jugosa hamburguesa con carne, queso, lechuga y tomate.',
+      imagen: require('../imagenes/hamburguesa.jpg'), 
+    },
+    {
+      id: 3,
+      nombre: 'Wantans',
+      descripcion: 'Una deliciosa comida china de masita con camaron o carne.',
+      imagen: require('../imagenes/wantans.jpg'), // Ajusta la ruta de la imagen según tu estructura de archivos
+    },
+    {
+      id: 4,
+      nombre: 'spaguetti',
+      descripcion: 'Una jugosa pasta alfredo de italia.',
+      imagen: require('../imagenes/pasta.png'), 
+    },
+    {
+      id: 5,
+      nombre: 'Subway',
+      descripcion: 'un delicioso pan con ensalda saludable dentro de ellos',
+      imagen: require('../imagenes/subway.jpg'), // Ajusta la ruta de la imagen según tu estructura de archivos
+    },
+    {
+      id: 6,
+      nombre: 'Papas fritas',
+      descripcion: 'Papas fritas',
+      imagen: require('../imagenes/papas.jpg'), 
+    },
 
-  // Función para manejar la adición de una tarea
-  const handleAddTask = () => {
-    Keyboard.dismiss(); // Oculta el teclado al agregar una tarea
-    setTaskItems([...taskItems, task]) // Agrega la tarea al listado de tareas
-    setTask(null); // Reinicia el estado de la tarea a nulo después de agregarla
-  }
+  ];
 
-  // Función para marcar una tarea como completada
-  const completeTask = (index) => {
-    let itemsCopy = [...taskItems]; // Crea una copia del listado de tareas
-    itemsCopy.splice(index, 1); // Elimina la tarea seleccionada del listado
-    setTaskItems(itemsCopy); // Actualiza el listado de tareas
-  }
+  // Función para renderizar cada elemento de la lista
+  const renderItem = ({ item }) => (
+    <View style={styles.item}>
+      <Image source={item.imagen} style={styles.imagen} />
+      <Text style={styles.nombre}>{item.nombre}</Text>
+      <Text style={styles.descripcion}>{item.descripcion}</Text>
+    </View>
+  );
 
   return (
     <View style={styles.container}>
-      {/* Agrega un ScrollView para permitir el desplazamiento cuando el listado de tareas sea largo */}
-      <ScrollView
-        contentContainerStyle={{
-          flexGrow: 1
-        }}
-        keyboardShouldPersistTaps='handled' // Persiste la pulsación en los elementos interactivos al desplazarse
-      >
-
-      {/* Sección de tareas de hoy */}
-      <View style={styles.tasksWrapper}>
-        <Text style={styles.sectionTitle}>Tareas de hoy</Text>
-        <View style={styles.items}>
-          {/* Aquí se mostrarán las tareas */}
-          {
-            taskItems.map((item, index) => {
-              return (
-                <TouchableOpacity key={index}  onPress={() => completeTask(index)}>
-                  <Task text={item} /> 
-                </TouchableOpacity>
-              )
-            })
-          }
-        </View>
-      </View>
-        
-      </ScrollView>
-
-      {/* Escribir una tarea */}
-      {/* Usa KeyboardAvoidingView para evitar que el teclado cubra los elementos en la pantalla */}
-      <KeyboardAvoidingView 
-        behavior={Platform.OS === "ios" ? "padding" : "height"} // Ajusta el comportamiento según la plataforma
-        style={styles.writeTaskWrapper}
-      >
-        <TextInput style={styles.input} placeholder={'Escribe una tarea'} value={task} onChangeText={text => setTask(text)} />
-        <TouchableOpacity onPress={() => handleAddTask()}>
-          <View style={styles.addWrapper}>
-            <Text style={styles.addText}>+</Text>
-          </View>
-        </TouchableOpacity>
-      </KeyboardAvoidingView>
-      
+      <FlatList
+        data={comidas}
+        renderItem={renderItem}
+        keyExtractor={item => item.id.toString()}
+      />
     </View>
   );
 }
 
-// Estilos
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#E8EAED',
-  },
-  tasksWrapper: {
-    paddingTop: 80,
-    paddingHorizontal: 20,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: 'bold'
-  },
-  items: {
-    marginTop: 30,
-  },
-  writeTaskWrapper: {
-    position: 'absolute',
-    bottom: 60,
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center'
-  },
-  input: {
-    paddingVertical: 15,
-    paddingHorizontal: 15,
-    backgroundColor: '#FFF',
-    borderRadius: 60,
-    borderColor: '#C0C0C0',
-    borderWidth: 1,
-    width: 250,
-  },
-  addWrapper: {
-    width: 60,
-    height: 60,
-    backgroundColor: '#FFF',
-    borderRadius: 60,
-    justifyContent: 'center',
+    backgroundColor: '#fff',
     alignItems: 'center',
-    borderColor: '#C0C0C0',
-    borderWidth: 1,
+    justifyContent: 'center',
+    paddingTop: 20,
   },
-  addText: {},
+  item: {
+    padding: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
+  imagen: {
+    width: 100,
+    height: 100,
+    marginBottom: 10,
+  },
+  nombre: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  descripcion: {
+    fontSize: 16,
+    color: '#555',
+  },
 });

@@ -1,184 +1,45 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
-import { useState } from 'react'
+import { StyleSheet, View } from 'react-native';
 import React from 'react';
+import Cardstudent from '../src/component/card'; // Asegúrate de que la ruta sea correcta
 
-
-export default function App( navigation ) {
-  //codigo Js
-  const [numero1, setNumero1] = useState(0);
-  const [numero2, setNumero2] = useState(0);
-  const [resultado, setResultado] = useState(0);
-
-  const sumar = () => {
-    let suma = parseFloat(numero1) + parseFloat(numero2)
-    setResultado(suma)
-  }
-  const restar = () => {
-    let resta = parseFloat(numero1) - parseFloat(numero2)
-    setResultado(resta)
-  }
-  const multiplicar = () => {
-    let multi = parseFloat(numero1) * parseFloat(numero2)
-    setResultado(multi)
-  }
-  const dividir = () => {
-    let division = parseFloat(numero1) / parseFloat(numero2)
-    setResultado(division)
-  }
-
-  const clean = () => {
-    setNumero1(0)
-    setNumero2(0)
-    setResultado(0)
-  }
-
-
-  //termina codigo js
-  return (
-    <View style={styles.container}>
-      <Text style={{
-
-        paddingVertical: 10,
-        marginBottom: 10,
-        fontSize: 20,
-        textAlign: 'center',
-      }}>calculadora de numeros</Text>
-      <Text>Numero 1: </Text>
-      <TextInput
-        style={{
-          backgroundColor: 'lightgray',
-          borderRadius: 10,
-          paddingHorizontal: 15,
-          paddingVertical: 10,
-          marginBottom: 10,
-          fontSize: 9,
-          color: 'black',
-          width: 150,
-        }}
-
-        placeholder='Numero 1: '
-        value={numero1}
-        onChangeText={setNumero1}
-      />
-      <Text>Numero 2: </Text>
-      <TextInput style={{
-        backgroundColor: 'lightgray',
-        borderRadius: 10,
-        paddingHorizontal: 15,
-        paddingVertical: 10,
-        marginBottom: 25,
-        fontSize: 9,
-        color: 'black',
-        width: 150,
-      }}
-        placeholder='Numero 2: '
-        value={numero2}
-        onChangeText={setNumero2}
-      />
-      <View style={styles.buttonRow}>
-        <TouchableOpacity style={{
-          backgroundColor: 'violet',
-          padding: 5,
-          marginLeft: 50,
-          width: 125
-        }}
-          onPress={sumar}
-        >
-          <Text style={{
-            color: '#FFF',
-            fontSize: 12,
-            textAlign: 'center',
-
-          }}>Sumar numeros</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={{
-          backgroundColor: 'pink',
-          padding: 5,
-          marginRight: 50,
-          width: 125
-        }}
-          onPress={restar}
-        >
-          <Text style={{
-            color: '#FFF',
-            fontSize: 12,
-            textAlign: 'center',
-
-          }}>Restar numeros</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.buttonRow}>
-        <TouchableOpacity style={{
-          backgroundColor: 'lightgreen',
-          padding: 5,
-          marginLeft: 50,
-          width: 125
-        }}
-          onPress={multiplicar}
-        >
-          <Text style={{
-            color: '#FFF',
-            fontSize: 12,
-            textAlign: 'center',
-
-          }}>Multiplicar numeros</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={{
-          backgroundColor: 'lightblue',
-          padding: 5,
-          marginRight: 50,
-          width: 125
-        }}
-          onPress={dividir}
-        >
-          <Text style={{
-            color: '#FFF',
-            fontSize: 12,
-            textAlign: 'center',
-
-          }}>dividir numeros</Text>
-        </TouchableOpacity>
-      </View>
-      <Text
-        style={{ color: 'black', fontSize: 25 }}>
-        Resultado: {resultado}
-      </Text>
-      <StatusBar style="auto" />
-      <TouchableOpacity style={{
-        backgroundColor: 'lightyellow',
-       
-        padding: 5
-      }}
-        onPress={clean}
-      >
-        <Text style={{
-          color: 'gray',
-          fontSize: 20,
-          width: 150,
-          textAlign:'center'
-        }}>Reset</Text>
-      </TouchableOpacity>
-
-    </View>
-  );
-
-  
+export default function App() {
+    return (
+        <View style={styles.container}>
+            <Cardstudent
+                nombreEstudiante="Rodrigo Rivas"
+                carnet="20200308"
+                foto='https://png.pngtree.com/element_our/20190531/ourmid/pngtree-cartoon-pupil-reading-text-png-transparent-bottom-image_1305440.jpg'
+            />
+             <Cardstudent
+                nombreEstudiante="Perez Garcia"
+                carnet="20180527"
+                foto='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-sBqtsULXUiZnguC8UJ78-iGYntbMYgPfz_elipEVxQ&s'
+            />
+             <Cardstudent
+                nombreEstudiante="Emiliano Jose"
+                carnet="20130450"
+                foto='https://w7.pngwing.com/pngs/1008/662/png-transparent-student-girl-school-girl-thinking-s-child-reading-boy.png'
+            />
+             <Cardstudent
+                nombreEstudiante="Wilfredo Molina"
+                carnet="19980415"
+                foto='https://png.pngtree.com/png-clipart/20220226/ourlarge/pngtree-cute-cartoon-middle-school-students--hand-painted-character-elements-png-image_4439736.png'
+            />
+             <Cardstudent
+                nombreEstudiante="Curma Melino"
+                carnet="20165398"
+                foto='https://png.pngtree.com/png-vector/20220120/ourlarge/pngtree-high-school-girl-playing-with-mobile-phone-png-image_4353891.png'
+            />
+            <StatusBar style="auto" />
+        </View>
+    );
 }
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  buttonRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-    marginBottom: 10,
-  },
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 });

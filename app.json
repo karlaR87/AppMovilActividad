@@ -1,0 +1,26 @@
+{
+    "expo": {
+      "name": "appprimera",
+      "slug": "appprimera",
+      "version": "1.0.0",
+      "orientation": "portrait",
+      "icon": "./imagenes/pou2.png",
+      "userInterfaceStyle": "light",
+      "splash": {
+        "image": "./imagenes/pou2.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#ADFBE7"
+      },
+      "ios": {
+        "supportsTablet": true
+      },
+      "android": {
+        "adaptiveIcon": {
+          "backgroundColor": "#ADFBE7"
+        }
+      },
+      "web": {
+      }
+    }
+  }
+  
